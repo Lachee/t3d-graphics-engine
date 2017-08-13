@@ -219,6 +219,9 @@
     <ClCompile Include="GLTestRenderer.cpp">
       <Filter>Source Files\Application</Filter>
     </ClCompile>
+    <ClCompile Include="FileMesh.cpp">
+      <Filter>Source Files\Component\Mesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -379,6 +382,9 @@
     </ClInclude>
     <ClInclude Include="SoundManager.h">
       <Filter>Header Files\Miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="FileMesh.h">
+      <Filter>Header Files\Component\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

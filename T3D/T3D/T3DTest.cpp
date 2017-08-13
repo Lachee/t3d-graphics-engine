@@ -28,6 +28,7 @@
 #include "Math.h"
 #include "Sweep.h"
 #include "SweepPath.h"
+#include "FileMesh.h"
 
 namespace T3D{
 
@@ -137,9 +138,18 @@ namespace T3D{
 		GameObject *cube = new GameObject(this);
 		cube->setMesh(new Cube(1));
 		cube->setMaterial(smiley);
-		cube->getTransform()->setLocalPosition(Vector3(4,-3,0));
+		cube->getTransform()->setLocalPosition(Vector3(4, -3, 0));
 		cube->getTransform()->setParent(root);
 		cube->getTransform()->name = "Cube";
+		
+		//Add a loaded mesh
+		GameObject *monkey = new GameObject(this);
+		monkey->setMesh(new FileMesh("Resources/monkey.t3dmesh"));
+		monkey->setMaterial(green);
+		monkey->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+		monkey->getTransform()->setLocalRotation(Vector3(0, 0, 0));
+		monkey->getTransform()->setParent(root);
+		monkey->getTransform()->name = "Monkey";
 
 		//Create an empty node to use as a rotation point
 		GameObject *rotateOrigin = new GameObject(this);
@@ -199,6 +209,7 @@ namespace T3D{
 		
 		//Add a behaviour to the Cube to make it "look at" the sphere
 		cube->addComponent(new LookAtBehaviour(sphere->getTransform()));
+		monkey->addComponent(new LookAtBehaviour(sphere->getTransform()));
 
 		//Add a help overlay
 		addTask(new DiagMessageTask(this, "Press F9 for help", 2, 32, true, 5.0));

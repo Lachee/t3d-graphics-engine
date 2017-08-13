@@ -20,6 +20,7 @@
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="DiagMessageTask.cpp" />
     <ClCompile Include="DrawTask.cpp" />
+    <ClCompile Include="FileMesh.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FontCache.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -74,6 +75,7 @@
     <ClInclude Include="Cube.h" />
     <ClInclude Include="DiagMessageTask.h" />
     <ClInclude Include="DrawTask.h" />
+    <ClInclude Include="FileMesh.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FontCache.h" />
     <ClInclude Include="GameObject.h" />
