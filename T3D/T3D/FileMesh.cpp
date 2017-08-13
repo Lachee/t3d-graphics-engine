@@ -56,6 +56,8 @@ namespace T3D
 
 		// Calculate normals
 		calcNormals();
+
+		//TODO: Support UV coords and Vertex Colors.
 	}
 
 
