@@ -8,7 +8,7 @@ bl_info = {
            "description": "Generates a text file with raw vertex index + position and a triangle index map. Designed for simplifed import into the T3D game engine, for best results, keep the meshes simple and use quads or triangles only.",
            "warning": "",
            "wiki_url": "http://graphicsandgames.com",
-           "tracker_url": "",
+           "tracker_url": "https://github.com/Lachee/t3d-graphics-engine/issues",
            "category": "Import-Export"
           }
 
