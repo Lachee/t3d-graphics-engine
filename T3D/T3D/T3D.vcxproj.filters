@@ -225,6 +225,9 @@
     <ClCompile Include="GeoShader.cpp">
       <Filter>Source Files\Material</Filter>
     </ClCompile>
+    <ClCompile Include="CameraOrbit.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -391,6 +394,9 @@
     </ClInclude>
     <ClInclude Include="GeoShader.h">
       <Filter>Header Files\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraOrbit.h">
+      <Filter>Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

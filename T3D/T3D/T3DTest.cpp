@@ -13,6 +13,7 @@
 #include "PlaneMesh.h"
 #include "Sphere.h"
 #include "KeyboardController.h"
+#include "CameraOrbit.h"
 #include "TerrainFollower.h"
 #include "RotateBehaviour.h"
 #include "LookAtBehaviour.h"
@@ -130,7 +131,7 @@ namespace T3D{
 		camObj->getTransform()->setParent(root);
 
 		//Add a controller to the camera object
-		camObj->addComponent(new KeyboardController());
+		//camObj->addComponent(new KeyboardController());
 
 		//Add some terrain
 		/*
@@ -229,7 +230,14 @@ namespace T3D{
 		
 		//Add a behaviour to the Cube to make it "look at" the sphere
 		cube->addComponent(new LookAtBehaviour(sphere->getTransform()));
-		monkey->addComponent(new LookAtBehaviour(sphere->getTransform()));
+		//monkey->addComponent(new LookAtBehaviour(sphere->getTransform()));
+
+
+		CameraOrbit *orbit = new CameraOrbit();
+		orbit->setTarget(monkey);
+		//orbit->distance = 100;
+
+		camObj->addComponent(orbit);
 
 		//Add a help overlay
 		addTask(new DiagMessageTask(this, "Press F9 for help", 2, 32, true, 5.0));
