@@ -337,13 +337,9 @@ namespace T3D
 
 		if (showPoints) 
 		{
-
-
-			//Disable the lighting and then draw the points
-			glDisable(GL_LIGHTING);
+			glDisable(GL_LIGHTING);	//Disable the lighting and then draw the points
 			{
-				//glColor3f(1, 0, 1);
-
+				//Draw white vertex lines
 				for (int i = 0; i < mesh->getNumVerts(); i++) 
 				{
 					auto normal = mesh->getNormal(i);
@@ -357,8 +353,12 @@ namespace T3D
 					glEnd();
 				}
 
-				glColor3f(0, 0, 1);
+				//Draw the points
+				glPointSize(2.5);
+				glDrawArrays(GL_POINTS, 0, mesh->getNumVerts());
 				
+				//Draw blue quads
+				glColor3f(0, 0, 1);
 				for (int i = 0; i < mesh->getNumQuads(); i++) 
 				{
 					auto quads = mesh->getQuadIndices();
@@ -368,20 +368,34 @@ namespace T3D
 					auto c = quads[i * 4 + 2];
 					auto d = quads[i * 4 + 3];
 
+					auto va = mesh->getVertex(a);
+					auto vb = mesh->getVertex(b);
+					auto vc = mesh->getVertex(c);
+					auto vd = mesh->getVertex(d);
+
 					//CrossProduct((v2 - v1), (v3 - v1))
 					auto normal = (mesh->getNormal(a) + mesh->getNormal(b) + mesh->getNormal(c) + mesh->getNormal(d)) / 4;
-					auto origin = (mesh->getVertex(a) + mesh->getVertex(b) + mesh->getVertex(c) + mesh->getVertex(d)) / 4;
+					auto origin = (va + vb + vc + vd) / 4;
 
-					normal *= 0.25f;
+					normal *= 0.20f;
 
 					glBegin(GL_LINES);
-					glVertex3f(origin.x, origin.y, origin.z);
-					glVertex3f(origin.x + normal.x, origin.y + normal.y, origin.z + normal.z);
+					{
+						/*
+						glVertex3f(va.x, va.y, va.z);
+						glVertex3f(vb.x, vb.y, vb.z);
+						glVertex3f(vc.x, vc.y, vc.z);
+						glVertex3f(vd.x, vd.y, vd.z);
+						*/
+
+						glVertex3f(origin.x, origin.y, origin.z);
+						glVertex3f(origin.x + normal.x, origin.y + normal.y, origin.z + normal.z);
+					}
 					glEnd();
 				}
 				
+				//Draw cyan triangles
 				glColor3f(0, 1, 1);
-
 				for (int i = 0; i < mesh->getNumTris(); i++)
 				{
 					auto tris = mesh->getTriIndices();
@@ -390,26 +404,35 @@ namespace T3D
 					auto b = tris[i * 3 + 1];
 					auto c = tris[i * 3 + 2];
 
+					auto va = mesh->getVertex(a);
+					auto vb = mesh->getVertex(b);
+					auto vc = mesh->getVertex(c);
+
 					//CrossProduct((v2 - v1), (v3 - v1))
 					auto normal = (mesh->getNormal(a) + mesh->getNormal(b) + mesh->getNormal(c)) / 3;
-					auto origin = (mesh->getVertex(a) + mesh->getVertex(b) + mesh->getVertex(c)) / 3;
+					auto origin = (va + vb + vc) / 3;
 
-					normal *= 0.25f;
+					normal *= 0.20f;
 
 					glBegin(GL_LINES);
-					glVertex3f(origin.x, origin.y, origin.z);
-					glVertex3f(origin.x + normal.x, origin.y + normal.y, origin.z + normal.z);
+					{
+						/*
+						glVertex3f(va.x, va.y, va.z);
+						glVertex3f(vb.x, vb.y, vb.z);
+						glVertex3f(vc.x, vc.y, vc.z);
+						glVertex3f(va.x, va.y, va.z);
+						*/
+						
+						glVertex3f(origin.x, origin.y, origin.z);
+						glVertex3f(origin.x + normal.x, origin.y + normal.y, origin.z + normal.z);
+					}
 					glEnd();
 				}
 
-
-				glColor3f(1, 1, 1);
-			
-
-				//glPointSize(5);
-				//glDrawArrays(GL_POINTS, 0, mesh->getNumVerts());
+				//Set the colour to white again
+				glColor3f(1, 1, 1);			
 			}
-			glEnable(GL_LIGHTING);
+			glEnable(GL_LIGHTING);	//Re-enable the lighting as we finished our debugs
 		}
 	}
 
