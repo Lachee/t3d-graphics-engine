@@ -141,6 +141,13 @@ namespace T3D
 	#define KEY_F14			295 
 	#define KEY_F15			296 
 
+	#define MOUSE_LEFT = 0;
+	#define MOUSE_MIDDLE = 1;
+	#define MOUSE_RIGHT = 2;
+
+	#define MOUSE_SCROLL_UP = 3;
+	#define MOUSE_SCROLL_DOWN = 4;
+
 	class Input
 	{
 	public:
@@ -151,6 +158,7 @@ namespace T3D
 
 	public:
 		static bool keyDown[512];
+		static bool mouseDown[5];
 		static int mouseX, mouseY;
 	};
 

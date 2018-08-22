@@ -13,15 +13,32 @@
 
 namespace T3D
 {
+	bool Input::mouseDown[5];
 	bool Input::keyDown[512];
 	int Input::mouseX = 0;
 	int Input::mouseY = 0;
 
+	int Input::mouseScroll = 0;
+
 	void Input::init(){
-		for (int i=0; i<512; i++){
+		for (int i = 0; i<512; i++) {
 			keyDown[i] = false;
+		}		
+		
+		for (int i = 0; i<5; i++) {
+			mouseDown[i] = false;
 		}
 		mouseX = 0; mouseY = 0;
+	}
+
+	void Input::onMouseDown(int button) 
+	{
+		mouseDown[button] = true;
+	}
+
+	void Input::onMouseUp(int button)
+	{
+		mouseUp[button] = false;
 	}
 
 	void Input::onKeyDown(int keycode){
@@ -30,6 +47,11 @@ namespace T3D
 
 	void Input::onKeyUp(int keycode){
 		keyDown[keycode] = false;
+	}
+
+	void Input::onMouseScroll(int scroll) 
+	{
+		mouseScroll += scroll;
 	}
 
 	void Input::onMouseMotion(int dx, int dy){
