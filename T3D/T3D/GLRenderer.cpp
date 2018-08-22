@@ -279,6 +279,7 @@ namespace T3D
 			Shader *shader = mat->getShader();
 			if (shader) {
 				shader->bindShader();
+				//std::cout << "shader version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
 			}
 		}	
 	}
@@ -334,7 +335,82 @@ namespace T3D
 		glDrawElements(GL_TRIANGLES,3*mesh->getNumTris(),GL_UNSIGNED_INT,mesh->getTriIndices());
 		glDrawElements(GL_QUADS, 4 * mesh->getNumQuads(), GL_UNSIGNED_INT, mesh->getQuadIndices());
 
-		if (showPoints) glDrawArrays(GL_POINTS, 0, mesh->getNumVerts());
+		if (showPoints) 
+		{
+
+
+			//Disable the lighting and then draw the points
+			glDisable(GL_LIGHTING);
+			{
+				//glColor3f(1, 0, 1);
+
+				for (int i = 0; i < mesh->getNumVerts(); i++) 
+				{
+					auto normal = mesh->getNormal(i);
+					auto origin = mesh->getVertex(i);
+
+					normal *= 0.1f;
+
+					glBegin(GL_LINES);
+					glVertex3f(origin.x, origin.y, origin.z);
+					glVertex3f(origin.x + normal.x, origin.y + normal.y, origin.z + normal.z);
+					glEnd();
+				}
+
+				glColor3f(0, 0, 1);
+				
+				for (int i = 0; i < mesh->getNumQuads(); i++) 
+				{
+					auto quads = mesh->getQuadIndices();
+
+					auto a = quads[i * 4 + 0];
+					auto b = quads[i * 4 + 1];
+					auto c = quads[i * 4 + 2];
+					auto d = quads[i * 4 + 3];
+
+					//CrossProduct((v2 - v1), (v3 - v1))
+					auto normal = (mesh->getNormal(a) + mesh->getNormal(b) + mesh->getNormal(c) + mesh->getNormal(d)) / 4;
+					auto origin = (mesh->getVertex(a) + mesh->getVertex(b) + mesh->getVertex(c) + mesh->getVertex(d)) / 4;
+
+					normal *= 0.25f;
+
+					glBegin(GL_LINES);
+					glVertex3f(origin.x, origin.y, origin.z);
+					glVertex3f(origin.x + normal.x, origin.y + normal.y, origin.z + normal.z);
+					glEnd();
+				}
+				
+				glColor3f(0, 1, 1);
+
+				for (int i = 0; i < mesh->getNumTris(); i++)
+				{
+					auto tris = mesh->getTriIndices();
+
+					auto a = tris[i * 3 + 0];
+					auto b = tris[i * 3 + 1];
+					auto c = tris[i * 3 + 2];
+
+					//CrossProduct((v2 - v1), (v3 - v1))
+					auto normal = (mesh->getNormal(a) + mesh->getNormal(b) + mesh->getNormal(c)) / 3;
+					auto origin = (mesh->getVertex(a) + mesh->getVertex(b) + mesh->getVertex(c)) / 3;
+
+					normal *= 0.25f;
+
+					glBegin(GL_LINES);
+					glVertex3f(origin.x, origin.y, origin.z);
+					glVertex3f(origin.x + normal.x, origin.y + normal.y, origin.z + normal.z);
+					glEnd();
+				}
+
+
+				glColor3f(1, 1, 1);
+			
+
+				//glPointSize(5);
+				//glDrawArrays(GL_POINTS, 0, mesh->getNumVerts());
+			}
+			glEnable(GL_LIGHTING);
+		}
 	}
 
 

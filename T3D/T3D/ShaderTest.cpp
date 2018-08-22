@@ -30,8 +30,8 @@ namespace T3D{
 		//test scene
 
 		Material *shaderGreen = renderer->createMaterial(Renderer::PR_OPAQUE);
-		shaderGreen->setDiffuse(0,1,0,1);
-		GLShader *specShader = new GLShader("Resources/vspecular.shader","Resources/frag.shader");
+		shaderGreen->setDiffuse(0,1,1,1);
+		GLShader *specShader = new GLShader("Resources/vrtnormals.shader","Resources/frgnormals.shader");
 		specShader->compileShader();
 		shaderGreen->setShader(specShader);
 

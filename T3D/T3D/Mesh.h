@@ -84,7 +84,7 @@ namespace T3D
 		float *normals;
 		float *colors;
 		float *uvs;
-
+		
 		unsigned int *triIndices;
 		unsigned int *quadIndices;
 	};

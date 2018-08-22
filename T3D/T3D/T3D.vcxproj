@@ -24,6 +24,7 @@
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FontCache.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GeoShader.cpp" />
     <ClCompile Include="GLRenderer.cpp" />
     <ClCompile Include="GLShader.cpp" />
     <ClCompile Include="GLTestApplication.cpp" />
@@ -79,6 +80,7 @@
     <ClInclude Include="Font.h" />
     <ClInclude Include="FontCache.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GeoShader.h" />
     <ClInclude Include="GLRenderer.h" />
     <ClInclude Include="GLShader.h" />
     <ClInclude Include="GLTestApplication.h" />

@@ -29,6 +29,8 @@
 #include "Sweep.h"
 #include "SweepPath.h"
 #include "FileMesh.h"
+#include "GeoShader.h"
+#include "GLShader.h"
 
 namespace T3D{
 
@@ -68,6 +70,7 @@ namespace T3D{
 		Material *blue = renderer->createMaterial(Renderer::PR_OPAQUE);
 		blue->setDiffuse(0,0,1,1);
 
+
 		//Create some textured materials (using texture files)
 		Texture *smileytex = new Texture("Resources/Smiley.bmp", true, true);
 		renderer->loadTexture(smileytex);
@@ -102,6 +105,21 @@ namespace T3D{
 		Material *procmat = renderer->createMaterial(Renderer::PR_TERRAIN);
 		procmat->setTexture(proctex,50);
 		procmat->setSpecular(0,0,0,0);
+		
+		GeoShader *specShader = new GeoShader("Resources/vrtnormals.shader", "Resources/geonormals.shader", "Resources/frgnormals.shader");
+		specShader->compileShader();
+		green->setShader(specShader);
+		blue->setShader(specShader);
+		smiley->setShader(specShader);
+
+		/*
+		GLShader *normShader = new GLShader("Resources/vrtnormals.shader", "Resources/frgnormals.shader"); //"Resources/geonormals.shader", 
+		normShader->compileShader();
+		green->setShader(normShader);
+		procmat->setShader(normShader);
+		blue->setShader(normShader);
+		smiley->setShader(normShader);
+		*/
 
 		//Create a camera
 		GameObject *camObj = new GameObject(this);
@@ -115,6 +133,7 @@ namespace T3D{
 		camObj->addComponent(new KeyboardController());
 
 		//Add some terrain
+		/*
 		GameObject *terrain = new GameObject(this);
 		Terrain *terrainComponent = new Terrain();
 		terrain->addComponent(terrainComponent);
@@ -123,6 +142,7 @@ namespace T3D{
 		terrain->getTransform()->setLocalPosition(Vector3(0,-20,0));
 		terrain->getTransform()->setParent(root);
 		terrain->getTransform()->name = "Terrain";
+		*/
 
 		//Add a welcome message
 		GameObject *billboard = new GameObject(this);
