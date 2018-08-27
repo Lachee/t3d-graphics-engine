@@ -141,12 +141,13 @@ namespace T3D
 	#define KEY_F14			295 
 	#define KEY_F15			296 
 
-	#define MOUSE_LEFT = 0;
-	#define MOUSE_MIDDLE = 1;
-	#define MOUSE_RIGHT = 2;
-
-	#define MOUSE_SCROLL_UP = 3;
-	#define MOUSE_SCROLL_DOWN = 4;
+	#define MOUSE_LEFT			1
+	#define MOUSE_MIDDLE		2
+	#define MOUSE_RIGHT			3
+	#define MOUSE_SCROLL_UP		4
+	#define MOUSE_SCROLL_DOWN	5
+	#define MOUSE_PREVIOUS		6
+	#define MOUSE_NEXT			7
 
 	class Input
 	{
@@ -154,11 +155,13 @@ namespace T3D
 		static void init();
 		static void onKeyDown(int keycode);
 		static void onKeyUp(int keycode);
+		static void onMouseDown(int mousecode);
+		static void onMouseUp(int mousecode);
 		static void onMouseMotion(int dx, int dy);
 
 	public:
 		static bool keyDown[512];
-		static bool mouseDown[5];
+		static bool mouseDown[16];
 		static int mouseX, mouseY;
 	};
 

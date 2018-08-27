@@ -100,7 +100,7 @@ namespace T3D
 
 		SDL_WM_GrabInput(SDL_GRAB_ON);
 
-		SDL_ShowCursor(SDL_DISABLE);
+		//SDL_ShowCursor(SDL_DISABLE);
 
 		std::cout<<glGetString(GL_VERSION)<<"\n";
 
@@ -123,7 +123,10 @@ namespace T3D
 			lastFrame = thisFrame;
 			
 			Input::onMouseMotion(0,0);
-			while(SDL_PollEvent(&sdlEvent)) {
+			Input::onMouseUp(MOUSE_SCROLL_DOWN);
+			Input::onMouseUp(MOUSE_SCROLL_UP);
+			while(SDL_PollEvent(&sdlEvent)) 
+			{
 				handleEvent(&sdlEvent);
 			}
 
@@ -148,38 +151,9 @@ namespace T3D
 	}
 
 	void WinGLApplication::handleEvent(SDL_Event *e){
-
-		int btn = 0;
-		int state = 0;
-
+		int mouseButton = (int)e->button.button;
 		switch (e->type) 
 		{
-			case SDL_MOUSEBUTTONDOWN:
-				
-
-			case SDL_MOUSEBUTTONUP:
-				btn = (int)e->button.button;
-				state = (int)e->button.state;
-				switch (btn) 
-				{
-					//https://wiki.libsdl.org/SDL_MouseButtonEvent#Remarks
-					case SDL_BUTTON_X1:
-						if (state == SDL_PRESSED)
-							std::cout << "Scroll Down\n";
-						break;
-
-					case SDL_BUTTON_X2:
-						if (state == SDL_PRESSED)
-							std::cout << "Scroll Up\n";
-						break;
-
-					default:
-						std::cout << "Button " << btn << " - " << (state == SDL_PRESSED ? "PRESSED" : "RELEASED") << "\n";
-						break;
-				}
-
-				break;
-
 			case SDL_QUIT:
 				running = false;
 				break;
@@ -218,11 +192,22 @@ namespace T3D
 					}
 				}
 				break;
+
 			case SDL_KEYUP:
 				Input::onKeyUp(e->key.keysym.sym);
 				break;
-			case SDL_MOUSEMOTION:
-				
+
+			case SDL_MOUSEBUTTONDOWN:
+				Input::onMouseDown(mouseButton);
+				break;
+
+			case SDL_MOUSEBUTTONUP:
+				if (mouseButton != MOUSE_SCROLL_DOWN && mouseButton != MOUSE_SCROLL_UP)
+					Input::onMouseUp(mouseButton);
+
+				break;
+
+			case SDL_MOUSEMOTION:				
 				Input::onMouseMotion((e->motion).xrel,(e->motion).yrel);
 				break;
 

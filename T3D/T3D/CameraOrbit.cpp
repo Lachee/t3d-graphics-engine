@@ -21,22 +21,21 @@
 namespace T3D
 {
 	//min and max speeds for key and mouse sensitivity
-#define KEY_SENSITIVITY_MIN 50
-#define KEY_SENSITIVITY_MAX 100
-#define MOUSE_SENSITIVITY_MIN 0.0005f;
-#define MOUSE_SENSITIVITY_MAX 0.0010f;
 
 	CameraOrbit::CameraOrbit(void)
 	{
-		keySensitivity = 50.0f;
 		
-		xSpeed = 0.005;
+		xSpeed = 0.5;
 		ySpeed = 0.5;
+		scrollSpeed = 0.5;
 
 		yMinLimit = -20;
 		yMaxLimit = 80;
 
-		distance = -50;
+		distanceMin = 0.1;
+		distanceMax = 50;
+		distance = distanceMin + ((distanceMax - distanceMin) / 2);
+
 		x = 0;
 		y = 0;
 	}
@@ -51,26 +50,59 @@ namespace T3D
 		if (targetObject != NULL)
 			targetPosition = targetObject->getTransform()->getWorldPosition();
 
-		//resolve all of the input actions
-		updateOrbit();
+		//Check if we have reset our things
+		if (Input::keyDown[KEY_C])
+		{
+			setTarget(Vector3(0, 0, 0));
+			distance = distanceMin + ((distanceMax - distanceMin) / 2);
+			x = 0;
+			y = 0;
+		}
 
+		//Update the distance
+		if (Input::mouseDown[MOUSE_SCROLL_DOWN])
+			distance += scrollSpeed;
+
+		if (Input::mouseDown[MOUSE_SCROLL_UP])
+			distance -= scrollSpeed;
+		
+		//clamp the distance and the y
+		distance = Math::clamp(distance, distanceMin, distanceMax);		
+		
+
+
+		if (Input::mouseDown[MOUSE_LEFT])
+		{
+			//Move the positions around if we can
+			x += Input::mouseX * -xSpeed * 0.02;
+			y -= Input::mouseY * ySpeed * 0.02;
+		
+			y = Math::clamp(y, yMinLimit, yMaxLimit);
+		}
+
+		//Prepare our new rotation and set it
+		Quaternion rotation = Quaternion(Vector3(y, x, 0));
+		gameObject->getTransform()->setLocalRotation(rotation);
+
+		if (Input::mouseDown[MOUSE_RIGHT])
+		{
+			//?We are gonna update our target position first
+			Vector3 left = rotation.rotate(Vector3(1, 0, 0)) * Input::mouseX * -xSpeed *0.05;
+			Vector3 up = rotation.rotate(Vector3(0, 1, 0)) * Input::mouseY * ySpeed *0.05;
+			Vector3 pos = getTarget() + left + up;
+			setTarget(pos);
+		}
+
+		//Prepare our new position and set it
+		Vector3 negDistance = Vector3(0, 0, distance);
+		Vector3 position = rotation.rotate(negDistance) + getTarget();
+		gameObject->getTransform()->setLocalPosition(position);		
 	}
 	
 	//Method to resolve the action of mouse movements
 	void CameraOrbit::updateOrbit() 
 	{
-		x += Input::mouseX * xSpeed * distance * 0.02;
-		y -= Input::mouseY * ySpeed * 0.02;
 
-		y = Math::clamp(y, yMinLimit, yMaxLimit);
-
-		Quaternion rotation = Quaternion(Vector3(y, x, 0));
-
-		Vector3 negDistance = Vector3(0, 0, -distance);
-		Vector3 position = rotation.rotate(negDistance) + targetPosition;
-		
-		gameObject->getTransform()->setLocalPosition(position);
-		gameObject->getTransform()->setLocalRotation(rotation);
 	}
 
 }

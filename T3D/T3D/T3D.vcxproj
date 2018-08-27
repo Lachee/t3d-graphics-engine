@@ -129,7 +129,7 @@
     <ProjectGuid>{A41C2D2A-C0C1-4EE8-9B5A-00EDD049DC2F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>T3D</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
