@@ -25,6 +25,7 @@ namespace T3D
 {
 	GLRenderer::GLRenderer(void)
 	{
+		showGOAxis = false;
 	}
 
 	GLRenderer::~GLRenderer(void)
@@ -293,7 +294,48 @@ namespace T3D
 		}	
 	}
 
+	void GLRenderer::drawAxis(Transform *transform)
+	{
+		Vector3 origin = Vector3(0, 0, 0);// transform->getWorldPosition();
+		Vector3 scale = Vector3(1, 1, 1);
+		glDisable(GL_LIGHTING);	//Disable the lighting and then draw the points
+		glDisable(GL_DEPTH_TEST);
+		{
+			//Right Line
+			glColor3f(1, 0, 0);
+			glBegin(GL_LINES);
+			{
+				glVertex3f(origin.x, origin.y, origin.z);
+				glVertex3f(origin.x + scale.x, origin.y, origin.z);
+			}
+			glEnd(); 
+			
+			glColor3f(0, 1, 0);
+			glBegin(GL_LINES);
+			{
+				glVertex3f(origin.x, origin.y, origin.z);
+				glVertex3f(origin.x, origin.y + scale.y, origin.z);
+			}
+			glEnd(); 
+			
+			glColor3f(0, 0, 1);
+			glBegin(GL_LINES);
+			{
+				glVertex3f(origin.x, origin.y, origin.z);
+				glVertex3f(origin.x, origin.y, origin.z + scale.z);
+			}
+			glEnd();
+
+
+		}
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_LIGHTING);
+		glColor3f(1, 1, 1);
+	}
+
 	void GLRenderer::draw(GameObject* object){
+
+
 		Mesh *mesh = object->getMesh();
 		if (mesh != NULL){
 
@@ -315,6 +357,7 @@ namespace T3D
 			glPushMatrix();
 			glMultTransposeMatrixf((object->getTransform()->getWorldMatrix()).getData());
 			drawMesh(mesh);
+			if (showGOAxis) drawAxis(object->getTransform());
 			glPopMatrix();
 
 			if (matdiffuse != NULL)
