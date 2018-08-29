@@ -32,6 +32,7 @@
 #include "FileMesh.h"
 #include "GeoShader.h"
 #include "GLShader.h"
+#include "Pyramid.h"
 
 namespace T3D{
 
@@ -165,7 +166,8 @@ namespace T3D{
 		
 		//Add a loaded mesh
 		GameObject *monkey = new GameObject(this);
-		monkey->setMesh(new FileMesh("Resources/monkey.t3dmesh"));
+		//monkey->setMesh(new FileMesh("Resources/monkey.t3dmesh"));
+		monkey->setMesh(new Pyramid(1));
 		monkey->setMaterial(green);
 		monkey->getTransform()->setLocalPosition(Vector3(0, 0, 0));
 		monkey->getTransform()->setLocalRotation(Vector3(0, 0, 0));
