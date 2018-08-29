@@ -205,6 +205,7 @@ namespace T3D{
 		sphere->getTransform()->name = "Sphere";
 		
 		//Create some animation for the sphere and torus
+		/*
 		Animation *anim = new Animation(10.0);
 		torus->addComponent(anim);
 		anim->addKey("Sphere",10.0,Quaternion(),Vector3(0,5,0));
@@ -216,6 +217,7 @@ namespace T3D{
 		anim->addKey("Torus",7.0,Quaternion(),Vector3(15,0,0));
 		anim->addKey("Torus",5.0,Quaternion(Vector3(0,0,Math::HALF_PI)),Vector3(5,0,0));
 		anim->loop(true);	
+		*/
 		
 		//Add a particle system to the sphere
 		ParticleEmitter *particleSys = new ParticleEmitter(0.0f, 20.0f, 20.0f, 20.0f, 5.0f, 5.0f, 0.2f);
