@@ -63,6 +63,7 @@ namespace T3D
 		void togglePoints(){ showPoints = !showPoints; }
 		void toggleGrid(){ showGrid = !showGrid; }
 		void toggleAxes(){ showAxes = !showAxes; }
+		void toggleGameObjectAxis() { showGOAxis = !showGOAxis; }
 
 	private:	
 		virtual void buildRenderQueue(Transform *root);
@@ -84,7 +85,7 @@ namespace T3D
 		float fogDensity;
 		float fogColour[4];
 
-		bool showWireframe, showPoints, showGrid, showAxes;
+		bool showWireframe, showPoints, showGrid, showAxes, showGOAxis;
 
 	private:
 		std::vector<Material*> materials[PRIORITY_LEVELS];

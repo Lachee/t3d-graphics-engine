@@ -16,6 +16,7 @@
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraOrbit.cpp" />
+    <ClCompile Include="clipper.cpp" />
     <ClCompile Include="Colour.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Cube.cpp" />
@@ -46,6 +47,7 @@
     <ClCompile Include="PerfLogTask.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="PlaneMesh.cpp" />
+    <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RotateBehaviour.cpp" />
@@ -74,11 +76,13 @@
     <ClInclude Include="Bone.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraOrbit.h" />
+    <ClInclude Include="clipper.hpp" />
     <ClInclude Include="Colour.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="DiagMessageTask.h" />
     <ClInclude Include="DrawTask.h" />
+    <ClInclude Include="earcut.hpp" />
     <ClInclude Include="FileMesh.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FontCache.h" />
@@ -103,6 +107,7 @@
     <ClInclude Include="PerfLogTask.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="PlaneMesh.h" />
+    <ClInclude Include="Polygon.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RotateBehaviour.h" />

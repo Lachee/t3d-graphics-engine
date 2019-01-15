@@ -65,6 +65,7 @@ namespace T3D
 		void showD2DOverlays();
 		void drawText();
 		void draw2DMesh(overlay2D *overlay);
+		void drawAxis(Transform *transform);
 
 		std::list<overlay2D *> overlays;
 

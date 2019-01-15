@@ -23,6 +23,7 @@
 #include "ParticleBehaviour.h"
 #include "PerfLogTask.h"
 #include "DiagMessageTask.h"
+#include "Polygon.h"
 #include "Material.h"
 #include "Animation.h"
 #include "Billboard.h"
@@ -207,6 +208,7 @@ namespace T3D{
 		sphere->getTransform()->name = "Sphere";
 		
 		//Create some animation for the sphere and torus
+		/*
 		Animation *anim = new Animation(10.0);
 		torus->addComponent(anim);
 		anim->addKey("Sphere",10.0,Quaternion(),Vector3(0,5,0));
@@ -218,6 +220,7 @@ namespace T3D{
 		anim->addKey("Torus",7.0,Quaternion(),Vector3(15,0,0));
 		anim->addKey("Torus",5.0,Quaternion(Vector3(0,0,Math::HALF_PI)),Vector3(5,0,0));
 		anim->loop(true);	
+		*/
 		
 		//Add a particle system to the sphere
 		ParticleEmitter *particleSys = new ParticleEmitter(0.0f, 20.0f, 20.0f, 20.0f, 5.0f, 5.0f, 0.2f);
@@ -234,6 +237,23 @@ namespace T3D{
 		//cube->addComponent(new LookAtBehaviour(sphere->getTransform()));
 		monkey->addComponent(new LookAtBehaviour(sphere->getTransform()));
 
+		//Add a polygon
+		GameObject *polyobj = new GameObject(this);
+		polyobj->setMaterial(green);
+		polyobj->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+		polyobj->getTransform()->setParent(root);
+		polyobj->getTransform()->name = "Polygon";
+
+		Paths path(2);
+		path[0] << IntPoint(180, 200) << IntPoint(260, 200) << IntPoint(260, 150) << IntPoint(180, 150);
+		path[1] << IntPoint(215, 160) << IntPoint(230, 190) << IntPoint(200, 190);
+		Polygon* poly = new Polygon(path);
+		polyobj->setMesh(poly);
+
+		Paths clip(1);
+		clip[0] << IntPoint(190, 210) << IntPoint(240, 210) << IntPoint(240, 130) << IntPoint(190, 130);
+		poly->Union(clip, true);
+		
 
 		CameraOrbit *orbit = new CameraOrbit();
 		orbit->setTarget(Vector3(0, 0, 0));

@@ -16,6 +16,7 @@
 #include "Vector3.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "Camera.h"
 #include "Math.h"
 
 namespace T3D
@@ -29,8 +30,8 @@ namespace T3D
 		ySpeed = 0.5;
 		scrollSpeed = 0.5;
 
-		yMinLimit = -20;
-		yMaxLimit = 80;
+		yMinLimit = -Math::HALF_PI;
+		yMaxLimit = Math::HALF_PI;
 
 		distanceMin = 0.1;
 		distanceMax = 50;
@@ -59,6 +60,24 @@ namespace T3D
 			y = 0;
 		}
 
+		if (Input::keyDown[KEY_KP1])
+		{
+			x = Math::PI * (Input::keyDown[KEY_LEFT_CONTROL] ? 1 : 0);
+			y = 0;
+		}
+		
+		if (Input::keyDown[KEY_KP3])
+		{
+			x = Math::HALF_PI * (Input::keyDown[KEY_LEFT_CONTROL] ? -1 : 1);
+			y = 0;
+		}
+		
+		if (Input::keyDown[KEY_KP7])
+		{
+			x = 0;
+			y = Math::HALF_PI * (Input::keyDown[KEY_LEFT_CONTROL] ? 1 : -1);
+		}
+		
 		//Update the distance
 		if (Input::mouseDown[MOUSE_SCROLL_DOWN])
 			distance += scrollSpeed;
@@ -70,19 +89,19 @@ namespace T3D
 		distance = Math::clamp(distance, distanceMin, distanceMax);		
 		
 
-
-		if (Input::mouseDown[MOUSE_LEFT])
+		if (Input::mouseDown[MOUSE_LEFT] || Input::mouseDown[MOUSE_MIDDLE])
 		{
 			//Move the positions around if we can
 			x += Input::mouseX * -xSpeed * 0.02;
 			y -= Input::mouseY * ySpeed * 0.02;
-		
+
 			y = Math::clamp(y, yMinLimit, yMaxLimit);
 		}
 
 		//Prepare our new rotation and set it
 		Quaternion rotation = Quaternion(Vector3(y, x, 0));
 		gameObject->getTransform()->setLocalRotation(rotation);
+		//std::cout << "X: " << rotation.eulerAngles().x << " Y: " << rotation.eulerAngles().y << "\n";
 
 		if (Input::mouseDown[MOUSE_RIGHT])
 		{

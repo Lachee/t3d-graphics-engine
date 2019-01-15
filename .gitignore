@@ -78,16 +78,19 @@ $RECYCLE.BIN/
 *.userprefs
 
 # Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-bld/
-[Bb]in/
-[Oo]bj/
-[Ll]og/
+T3D/[Dd]ebug/
+T3D/[Dd]ebugPublic/
+T3D/[Rr]elease/
+T3D/[Rr]eleases/
+T3D/x64/
+T3D/x86/
+T3D/bld/
+T3D/[Bb]in/
+T3D/[Oo]bj/
+T3D/[Ll]og/
+
+T3D/T3D/[Dd]ebug/
+T3D/T3D/[Rr]elease/
 
 # Visual Studio 2015 cache/options directory
 .vs/
