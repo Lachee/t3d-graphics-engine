@@ -32,6 +32,7 @@
 #include "FileMesh.h"
 #include "GeoShader.h"
 #include "GLShader.h"
+#include "Triangle.h"
 
 namespace T3D{
 
@@ -150,16 +151,17 @@ namespace T3D{
 		Billboard *billboardComponent = new Billboard(renderer->camera->gameObject->getTransform(),true);
 		billboard->addComponent(billboardComponent);
 		billboard->setMaterial(textmat);			// hello world
-		billboard->getTransform()->setLocalPosition(Vector3(0,3,0));
+		billboard->getTransform()->setLocalPosition(Vector3(0,50,0));
 		billboard->getTransform()->setLocalScale(Vector3(6,1.5,1));
 		billboard->getTransform()->setParent(root);
 		billboard->getTransform()->name = "Billboard";
 
 		//Add a cube mesh
 		GameObject *cube = new GameObject(this);
-		cube->setMesh(new Cube(1));
+		//cube->setMesh(new Cube(1));
+		cube->setMesh(new Triangle(2, 2, 0.25f));
 		cube->setMaterial(smiley);
-		cube->getTransform()->setLocalPosition(Vector3(4, -3, 0));
+		cube->getTransform()->setLocalPosition(Vector3(0, 0, 0));
 		cube->getTransform()->setParent(root);
 		cube->getTransform()->name = "Cube";
 		
@@ -167,7 +169,7 @@ namespace T3D{
 		GameObject *monkey = new GameObject(this);
 		monkey->setMesh(new FileMesh("Resources/monkey.t3dmesh"));
 		monkey->setMaterial(green);
-		monkey->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+		monkey->getTransform()->setLocalPosition(Vector3(5, -2, 0));
 		monkey->getTransform()->setLocalRotation(Vector3(0, 0, 0));
 		monkey->getTransform()->setParent(root);
 		monkey->getTransform()->name = "Monkey";
@@ -229,12 +231,13 @@ namespace T3D{
 		particleSys->emit(40);
 		
 		//Add a behaviour to the Cube to make it "look at" the sphere
-		cube->addComponent(new LookAtBehaviour(sphere->getTransform()));
-		//monkey->addComponent(new LookAtBehaviour(sphere->getTransform()));
+		//cube->addComponent(new LookAtBehaviour(sphere->getTransform()));
+		monkey->addComponent(new LookAtBehaviour(sphere->getTransform()));
 
 
 		CameraOrbit *orbit = new CameraOrbit();
-		orbit->setTarget(monkey);
+		orbit->setTarget(Vector3(0, 0, 0));
+		//orbit->setTarget(monkey);
 		//orbit->distance = 100;
 
 		camObj->addComponent(orbit);

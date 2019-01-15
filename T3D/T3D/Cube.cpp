@@ -11,11 +11,15 @@
 // This allows use of gl array pointers
 
 #include "Cube.h"
+#include "Math.h"
 
 namespace T3D
 {
 	Cube::Cube(float size)
 	{
+
+#define CUBEDOTHING
+#ifdef CUBEDOTHING
 		// Init vertex and index arrays
 		initArrays(4 * 6,	// num vertices
 			       0,		// num tris
@@ -111,6 +115,7 @@ namespace T3D
 			uvs[pos++] = 1; uvs[pos++] = 1; 
 			uvs[pos++] = 1; uvs[pos++] = 0; 
 		}
+#endif
 	}
 
 
